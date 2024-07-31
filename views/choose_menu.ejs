@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dish Form</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+    <h2>Enter Different Dish Names Under Headings</h2>
+    <form action="/choose_menu" method="POST" id="dishForm">
+        <div id="dishContainer">
+            <!-- Initial heading and dish input -->
+            <div class="heading-entry">
+                <label for="heading1">Heading 1:</label>
+                <input type="text" id="heading1" name="heading[]"><br><br>
+                <div class="dishes-under-heading">
+                    <label for="dish1-1">Dish 1-1:</label>
+                    <input type="text" id="dish1-1" name="dish-1[]"><br><br>
+                </div>
+            </div>
+        </div>
+        <button type="button" onclick="addHeading()">Add Another Heading</button><br><br>
+        <button type="button" onclick="addDishToLastHeading()">Add Another Dish to Last Heading</button><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <button type="button" onclick="window.location.href='/display_menu'">Menu History</button>
+
+    <script>
+        let headingCount = 1;
+        let dishCount = 1;
+
+        function addHeading() {
+            headingCount++;
+            dishCount = 1; // Reset dish count for new heading
+            const dishContainer = document.getElementById('dishContainer');
+            const newHeading = document.createElement('div');
+            newHeading.className = 'heading-entry';
+            newHeading.innerHTML = `
+                <label for="heading${headingCount}">Heading ${headingCount}:</label>
+                <input type="text" id="heading${headingCount}" name="heading[]"><br><br>
+                <div class="dishes-under-heading">
+                    <label for="dish${headingCount}-1">Dish ${headingCount}-1:</label>
+                    <input type="text" id="dish${headingCount}-1" name="dish-${headingCount}[]"><br><br>
+                </div>
+            `;
+            dishContainer.appendChild(newHeading);
+        }
+
+        function addDishToLastHeading() {
+            const lastHeading = document.querySelector('#dishContainer .heading-entry:last-child .dishes-under-heading');
+            if (lastHeading) {
+                dishCount++;
+                const newDish = document.createElement('div');
+                newDish.className = 'dish-entry';
+                newDish.innerHTML = `
+                    <label for="dish${headingCount}-${dishCount}">Dish ${headingCount}-${dishCount}:</label>
+                    <input type="text" id="dish${headingCount}-${dishCount}" name="dish-${headingCount}[]"><br><br>
+                `;
+                lastHeading.appendChild(newDish);
+            }
+        }
+    </script>
+</body>
+</html>

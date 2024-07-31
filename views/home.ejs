@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome!</h1>
+        <form action="/home" method="POST">
+            <label for="restaurant">Enter your favorite restaurant name:</label>
+            <input type="text" id="restaurant" name="name" required>
+            <button type="submit">Save</button>
+        </form>
+        <h2>Your Favorite Restaurants</h2>
+        <ul>
+            <% if (restaurants.length > 0) { %>
+                <% restaurants.forEach(function(restaurant) { %>
+                    <li><%= restaurant.name %></li>
+                <% }) %>
+            <% } else { %>
+                <p>No favorite restaurants added yet.</p>
+            <% } %>
+        </ul>
+        <a href="/logout">Logout</a>
+    </div>
+</body>
+</html>

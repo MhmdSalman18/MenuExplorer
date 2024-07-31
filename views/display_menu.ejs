@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Menu</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+    <h2>Your Menus</h2>
+    <% if (menus.length > 0) { %>
+        <% menus.forEach(function(menu) { %>
+            <div class="menu-entry">
+                <h3><%= menu.menuName %></h3>
+                <% menu.headings.forEach(function(heading) { %>
+                    <div class="heading-entry">
+                        <h4><%= heading.heading %></h4>
+                        <ul>
+                            <% heading.dishes.forEach(function(dish) { %>
+                                <li><%= dish %></li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                <% }) %>
+                <form action="/delete_menu" method="POST" style="display: inline;">
+                    <input type="hidden" name="menuId" value="<%= menu._id %>">
+                    <button type="submit">Delete</button>
+                </form>
+                
+                
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p>No menu items found.</p>
+    <% } %>
+    <a href="/choose_menu">Back to Menu Form</a>
+    <a href="/logout">Logout</a>
+</body>
+</html>
