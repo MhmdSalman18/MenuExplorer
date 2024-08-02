@@ -4,8 +4,9 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const User = require('./models/User');
-const Restaurant = require('./models/Restaurant'); // Import the Restaurant model
-const Menu = require('./models/Menu'); // Import the Menu model
+const Restaurant = require('./models/Restaurant');
+const Menu = require('./models/Menu');
+const pdf = require('html-pdf');
 
 const app = express();
 
@@ -18,8 +19,11 @@ mongoose.connect('mongodb://localhost:27017/authDB', {
   .catch(err => console.error(err));
 
 // Middleware
+// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('main'));
 app.use(express.static('public'));
+
 app.set('view engine', 'ejs');
 app.use(session({
     secret: 'secret',
@@ -29,7 +33,7 @@ app.use(session({
 
 // Redirect root route to /login
 app.get('/', (req, res) => {
-    res.redirect('/login');
+    res.sendFile(path.join(__dirname, 'main', 'index.html'));
 });
 
 // Login route
@@ -119,7 +123,6 @@ app.post('/choose_menu', async (req, res) => {
     }
 });
 
-
 // Display Menu route
 app.get('/display_menu', async (req, res) => {
     const userId = req.session.userId;
@@ -157,34 +160,69 @@ app.post('/delete_menu', async (req, res) => {
     }
 
     const { menuId } = req.body;
-    console.log('Received menuId:', menuId); // Debugging line
-    console.log('UserId:', userId); // Debugging line
 
-    if (!menuId) {
-        console.error('menuId is missing');
-        return res.status(400).send('Menu ID is required');
-    }
-
-    // Validate the ObjectId
-    if (!mongoose.isValidObjectId(menuId)) {
-        console.error('Invalid menuId:', menuId);
+    if (!menuId || !mongoose.isValidObjectId(menuId)) {
         return res.status(400).send('Invalid menu ID');
     }
 
     try {
         const result = await Menu.deleteOne({ _id: menuId, userId });
-        console.log('Delete Result:', result);
         if (result.deletedCount === 0) {
-            console.log('No menu item found to delete.');
             return res.status(404).send('Menu item not found');
         }
         res.redirect('/display_menu');
     } catch (err) {
-        console.error('Error deleting menu:', err);
         res.status(500).send('Internal Server Error');
     }
 });
 
+// Convert to PDF route
+app.post('/convert_to_pdf', async (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+        return res.redirect('/login');
+    }
+
+    const { menuId } = req.body;
+
+    try {
+        const menus = await Menu.find({ userId, menuName: menuId });
+        const groupedMenu = {
+            menuName: menuId,
+            headings: menus.map(menu => ({
+                heading: menu.heading,
+                dishes: menu.dishes
+            }))
+        };
+
+        const htmlContent = `
+            <html>
+                <head><title>${groupedMenu.menuName}</title></head>
+                <body>
+                    <h1>${groupedMenu.menuName}</h1>
+                    ${groupedMenu.headings.map(heading => `
+                        <h2>${heading.heading}</h2>
+                        <ul>
+                            ${heading.dishes.map(dish => `<li>${dish}</li>`).join('')}
+                        </ul>
+                    `).join('')}
+                </body>
+            </html>
+        `;
+
+        const pdfOptions = { format: 'A4' };
+
+        pdf.create(htmlContent, pdfOptions).toBuffer((err, buffer) => {
+            if (err) {
+                return res.status(500).send('Error generating PDF');
+            }
+            res.type('pdf');
+            res.send(buffer);
+        });
+    } catch (err) {
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 // Logout route
 app.get('/logout', (req, res) => {

@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const menuSchema = new mongoose.Schema({
+const MenuSchema = new Schema({
     userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     },
     menuName: {
         type: String,
@@ -14,10 +15,10 @@ const menuSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    dishes: [{
-        type: String,
+    dishes: {
+        type: [String],
         required: true
-    }]
-});
+    }
+}, { timestamps: true });
 
-module.exports = mongoose.model('Menu', menuSchema);
+module.exports = mongoose.model('Menu', MenuSchema);

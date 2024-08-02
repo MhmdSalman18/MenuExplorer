@@ -1,0 +1,83 @@
+/* display_menu.css */
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+.menu-entry {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background-color: #fafafa;
+}
+
+.menu-entry h3 {
+    margin: 0;
+}
+
+.heading-entry {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.heading-entry h4 {
+    margin: 0;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+button {
+    padding: 5px 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.delete-button {
+    background-color: #dc3545;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.pdf-button {
+    background-color: #007bff;
+    margin-left: 10px;
+}
+
+.pdf-button:hover {
+    background-color: #0056b3;
+}

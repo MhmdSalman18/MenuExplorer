@@ -1,0 +1,163 @@
+/* General Styles */
+body {
+    /* font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; */
+}
+ul.navbar-nav li.nav-item a.nav-link {
+    color: #ff5e00;
+    font-weight: lighter;
+    font-family: Rowdies;
+  }
+  
+  .navbar {
+    background-color: transparent !important;
+    backdrop-filter: blur(1px); 
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .navbar-brand {
+    width: 100px;
+    height: 90px;
+  }
+  .navbar-toggler {
+    background-color: #fff;
+    color: #fff;
+  }
+  .navbar-toggler:hover {
+    background-color: #9de3ff;
+  }
+  
+  .navbar-nav .nav-link {
+    margin-right: 50px;
+  }
+  
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* Ensure it stays above other content */
+}
+
+h2 {
+    text-align: center;
+    margin: 0;
+    color: #333333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+#dishContainer {
+    margin-top: 20px;
+}
+
+.label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555555;
+    display: inline-block;
+    min-width: 120px; /* Adjust width to ensure labels align properly */
+}
+.dishes-under-heading label{
+    color: #ff6f00;
+}
+
+input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    width: calc(100% - 130px); /* Adjust width to align with label */
+}
+
+button[type="button"]  {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #493526;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+input[type="submit"]{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #ebefd200;
+    cursor: pointer;
+    border: 1px solid #ff6f00;
+    font-size: 16px;
+}
+input[type="submit"]:hover {
+    background-color: #ff6f00;
+    color: white;
+}
+
+button[type="button"]:hover {
+    background-color: #ff6f00;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.heading-entry, .dish-entry {
+    margin-bottom: 15px;
+}
+
+.heading-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#add-dish-button {
+    margin-left: 20px;
+    margin-bottom: 10px;
+    background-color:#ff6f00;
+    padding:0 30px; /* Add padding for better size */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Match the design */
+    font-size: 16px; /* Consistent text size */
+    cursor: pointer; /* Pointer cursor */
+}
+
+.add-dish-button:hover {
+    background-color: indigo; /* Darker color on hover */
+}
+
+.menu-history-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.menu-history-button:hover {
+    background-color: #218838;
+}
