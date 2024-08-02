@@ -4,9 +4,10 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const User = require('./models/User');
-const Restaurant = require('./models/Restaurant');
-const Menu = require('./models/Menu');
+const Menu = require('./models/Menu'); // Import the Menu model
 const pdf = require('html-pdf');
+const path = require('path');
+const qrcode = require('qrcode'); // Import qrcode module
 
 const app = express();
 
@@ -19,11 +20,9 @@ mongoose.connect('mongodb://localhost:27017/authDB', {
   .catch(err => console.error(err));
 
 // Middleware
-// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('main'));
 app.use(express.static('public'));
-
 app.set('view engine', 'ejs');
 app.use(session({
     secret: 'secret',
@@ -136,6 +135,7 @@ app.get('/display_menu', async (req, res) => {
             if (!acc[menu.menuName]) {
                 acc[menu.menuName] = {
                     menuName: menu.menuName,
+                    _id: menu._id, // Store the _id for deletion
                     headings: []
                 };
             }
@@ -166,7 +166,7 @@ app.post('/delete_menu', async (req, res) => {
     }
 
     try {
-        const result = await Menu.deleteOne({ _id: menuId, userId });
+        const result = await Menu.deleteMany({ _id: menuId, userId });
         if (result.deletedCount === 0) {
             return res.status(404).send('Menu item not found');
         }
@@ -212,12 +212,16 @@ app.post('/convert_to_pdf', async (req, res) => {
 
         const pdfOptions = { format: 'A4' };
 
-        pdf.create(htmlContent, pdfOptions).toBuffer((err, buffer) => {
+        pdf.create(htmlContent, pdfOptions).toFile(`./public/pdf/${menuId}.pdf`, async (err, result) => {
             if (err) {
                 return res.status(500).send('Error generating PDF');
             }
-            res.type('pdf');
-            res.send(buffer);
+
+            // Generate QR code
+            const pdfUrl = `http://localhost:3000/pdf/${menuId}.pdf`;
+            const qrCodeDataUrl = await qrcode.toDataURL(pdfUrl);
+
+            res.render('pdf_view', { pdfUrl, qrCodeDataUrl });
         });
     } catch (err) {
         res.status(500).send('Internal Server Error');

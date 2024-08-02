@@ -5,31 +5,29 @@
     <link rel="stylesheet" type="text/css" href="/css/display_menu.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Menu History</h2>
-        <% menus.forEach(menu => { %>
-            <div class="menu-entry">
-                <h3><%= menu.menuName %></h3>
-                <% menu.headings.forEach(heading => { %>
-                    <div class="heading-entry">
-                        <h4><%= heading.heading %></h4>
-                        <ul>
-                            <% heading.dishes.forEach(dish => { %>
-                                <li><%= dish %></li>
-                            <% }) %>
-                        </ul>
-                    </div>
-                <% }) %>
-                <form action="/delete_menu" method="POST" style="display:inline;">
-                    <input type="hidden" name="menuId" value="<%= menu._id %>">
-                    <button type="submit" class="delete-button">Delete</button>
-                </form>
-                <form action="/convert_to_pdf" method="POST" style="display:inline;">
+    <h1>Saved Menus</h1>
+    <% menus.forEach(menu => { %>
+        <div class="menu">
+            <h2><%= menu.menuName %></h2>
+            <% menu.headings.forEach(heading => { %>
+                <h3><%= heading.heading %></h3>
+                <ul>
+                    <% heading.dishes.forEach(dish => { %>
+                        <li><%= dish %></li>
+                    <% }) %>
+                </ul>
+            <% }) %>
+            <div class="form-inline">
+                <form action="/delete_menu" method="POST">
                     <input type="hidden" name="menuId" value="<%= menu.menuName %>">
-                    <button type="submit" class="pdf-button">Convert to PDF</button>
+                    <button type="submit">Delete</button>
+                </form>
+                <form action="/convert_to_pdf" method="POST">
+                    <input type="hidden" name="menuId" value="<%= menu.menuName %>">
+                    <button type="submit">Convert to PDF</button>
                 </form>
             </div>
-        <% }) %>
-    </div>
+        </div>
+    <% }) %>
 </body>
 </html>
