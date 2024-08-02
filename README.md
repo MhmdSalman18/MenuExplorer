@@ -1,6 +1,6 @@
 # Menu Explorer
 
-Menu Explorer is a web application that allows users to log in, sign up, and create custom menus by adding different dish names under headings. Users can also view and delete their saved menus, as well as convert menus to PDF format.
+Menu Explorer is a web application that allows users to log in, sign up, and create custom menus by adding different dish names under headings. Users can also view and delete their saved menus, convert menus to PDF format, and generate QR codes for the PDFs.
 
 ## Features
 
@@ -8,6 +8,7 @@ Menu Explorer is a web application that allows users to log in, sign up, and cre
 - Create and save custom menus with headings and dishes
 - View and delete saved menus
 - Convert menus to PDF format
+- Generate QR codes for PDF menus
 
 ## Technologies Used
 
@@ -21,6 +22,7 @@ Menu Explorer is a web application that allows users to log in, sign up, and cre
 - bcryptjs (for password hashing)
 - express-session (for session management)
 - html-pdf (for PDF conversion)
+- qrcode (for QR code generation)
 
 ## Installation
 
