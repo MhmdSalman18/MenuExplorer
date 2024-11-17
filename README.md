@@ -1,33 +1,59 @@
-# Menu Explorer
+# MenuExplorer  
 
-Menu Explorer is a web application that allows users to log in, sign up, and create custom menus by adding different dish names under headings. Users can also view and delete their saved menus, convert menus to PDF format, and generate QR codes for the PDFs.
+MenuExplorer is a web application designed to help restaurant owners digitize their menus. The platform enables users to manually create menus, convert them into PDFs, and generate QR codes for easy customer access.  
 
-## Features
+---
 
-- User authentication (Login and Signup)
-- Create and save custom menus with headings and dishes
-- View and delete saved menus
-- Convert menus to PDF format
-- Generate QR codes for PDF menus
+## Features  
 
-## Technologies Used
+1. **Sign-In/Authentication**  
+   - Secure access for restaurant owners to manage their menus.  
 
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- EJS (Embedded JavaScript templates)
-- HTML/CSS
-- JavaScript
-- bcryptjs (for password hashing)
-- express-session (for session management)
-- html-pdf (for PDF conversion)
-- qrcode (for QR code generation)
+2. **Manual Menu Creation**  
+   - Add menu items with:  
+     - Item names  
+     - Descriptions  
+     - Prices  
+     - Categories  
 
-## Installation
+3. **Convert to PDF**  
+   - Create professional-looking PDF menus with a single click.  
 
-1. Clone the repository:
+4. **QR Code Generation**  
+   - Automatically generate a QR code for the created PDF.  
 
+5. **Customer Access**  
+   - Customers scan the QR code to instantly view the menu in PDF format on their devices.  
+
+---
+
+## How It Works  
+
+1. Restaurant owners **sign in** to the platform.  
+2. They **manually add menu items** by entering details like names, prices, and descriptions.  
+3. Click the **Convert to PDF** button to generate a digital menu.  
+4. The system **creates a QR code** linked to the generated PDF.  
+5. Owners can download or print the QR code for their customers.  
+6. Customers **scan the QR code** to access the menu in PDF format.  
+
+---
+
+## Technology Stack  
+
+- **Frontend:**  
+  - HTML, CSS, JavaScript  
+
+- **Backend:**  
+  - Python/Node.js  
+
+- **QR Code Generation Library:**  
+  - Integrated for creating QR codes.  
+
+---
+
+## Installation  
+
+1. Clone the repository:  
    ```bash
-   git clone https://github.com/yourusername/menu-explorer.git
-   cd menu-explorer
+   git clone https://github.com/yourusername/MenuExplorer.git
+   cd MenuExplorer
